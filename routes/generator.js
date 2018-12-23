@@ -23,7 +23,7 @@ router.post('/', (req, res)=>{
   const num = parseInt(req.body.num);
 
   async function numIterator (amount,num,issue,expire) {
-    let randomTime = Math.floor(Math.random()*1000);
+    let randomTime = Math.floor(Math.random()*10);
     let timer = 0;
 
     const randomGen = (amount,num,issue,expire) => {
@@ -37,7 +37,7 @@ router.post('/', (req, res)=>{
       }
     
       card.push(newCard);
-      randomTime = Math.floor(Math.random()*1000);
+      randomTime = Math.floor(Math.random()*10);
 
       // console.log(newCard)
       timer++;

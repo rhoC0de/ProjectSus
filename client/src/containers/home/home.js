@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
 import List from '../list/list';
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'reactstrap';
@@ -14,11 +14,10 @@ class Home extends Component {
     this.state = {
       amount: '',
       num: '',
-      clicked: false
+      checked: false
     }
     this.generator = this.generator.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.renderList = this.renderList.bind(this);
   }
 
   onChange(e){
@@ -35,20 +34,17 @@ class Home extends Component {
     }
     if(!(newGenerate.amount && newGenerate.num)) return
     axios.post('http://localhost:5000/generator', newGenerate)
-      .then((res) => this.setState.clicked = true)
-      // .then((res) => this.renderList())
+      .then((res) => this.delayListRender())
       .catch((err) => console.log(err.message));
   }
 
-  renderList(){
-    return <List />;
+  delayListRender(){
+    setTimeout(() => {
+      this.setState({checked:true})
+    }, 2000);
   }
 
   render() {
-    let clicked = this.state.clicked;
-    let listing;
-    clicked ? listing = <List /> : listing = '';
-
     return (
       <div>
         <div className='select'>
@@ -76,7 +72,7 @@ class Home extends Component {
           <Button color='success' onClick={this.generator}>Generate</Button>
         </div>
         <br />
-        {listing}
+        {(this.state.checked)?<List />:''}
       </div>
     )
   }
